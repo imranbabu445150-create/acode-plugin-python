@@ -64,9 +64,10 @@ class Python {
     this.$runBtn = <div className='icon play_py' attr-action='run' onclick={this.run.bind(this)} />
     this.$style = <style>{style.default.replace('icon.ttf', font.default)}</style>;
     this.$input = <div className='print input'>
-      <textarea onkeydown={this.#onkeydown.bind(this)} oninput={this.#oninput.bind(this)} />
+      <textarea placeholder='Type Python here and press Enter…' onkeydown={this.#onkeydown.bind(this)} oninput={this.#oninput.bind(this)} />
     </div>;
 
+    this.#ensureConsoleLayout();
     this.checkRunnable();
     editorManager.on('switch-file', this.checkRunnable.bind(this));
     editorManager.on('rename-file', this.checkRunnable.bind(this));
@@ -163,24 +164,66 @@ class Python {
     this.#append($output, this.$input);
   }
 
+  #ensureConsoleLayout() {
+    const $main = this.$page.get('.main');
+    if (!$main || $main.get('.console-shell')) return;
+
+    const $shell = tag('div', { className: 'console-shell' });
+    const $header = tag('div', { className: 'console-header' });
+    const $title = tag('div', { className: 'console-title' });
+    const $label = tag('span', { className: 'console-label', textContent: 'Python Console' });
+    const $badge = tag('span', { className: 'console-badge', textContent: 'Ready' });
+    $title.append($label, $badge);
+
+    const $actions = tag('div', { className: 'console-actions' });
+    const $clearBtn = tag('button', { className: 'console-btn', textContent: 'Clear' });
+    $clearBtn.onclick = this.#clearConsole.bind(this);
+    $actions.append($clearBtn);
+
+    $header.append($title, $actions);
+
+    const $body = tag('div', { className: 'console-body' });
+    const $welcome = tag('div', { className: 'welcome-banner' });
+    const $logoWrap = tag('div', { className: 'logo-wrap' });
+    const $logo = tag('img', { className: 'brand-logo', src: this.baseUrl + 'logo.svg' });
+    const $welcomeText = tag('div', { className: 'welcome-text' });
+    const $welcomeTitle = tag('div', { className: 'welcome-title', textContent: '🌸 ই-কমার্স BD.com তে আপনাকে স্বাগতম!' });
+    const $welcomeSub = tag('div', { className: 'welcome-sub', textContent: 'সহজ। সুরক্ষিত। সচল।' });
+    $welcomeText.append($welcomeTitle, $welcomeSub);
+    $logoWrap.append($logo);
+    $welcome.append($logoWrap, $welcomeText);
+    $body.append($welcome);
+    $shell.append($header, $body);
+    $main.append($shell);
+  }
+
   #showPage() {
     const $main = this.$page.get('.main');
     if (!this.$page.isConnected) {
       this.$page.classList.remove('hide');
       this.$page.show();
     }
-    $main.innerHTML = '';
+    this.#ensureConsoleLayout();
+    const $body = this.$page.get('.console-body');
+    if ($body) $body.innerHTML = '';
   }
 
   #clearConsole() {
-    this.$page.get('.main').innerHTML = '';
+    const $body = this.$page.get('.console-body');
+    if ($body) $body.innerHTML = '';
     this.#append(this.$input);
   }
 
   #append(...$el) {
-    const $main = this.$page.get('.main');
-    if (!$main) this.$page.append(tag('div', { className: 'main' }));
-    this.$page.get('.main').append(...$el);
+    this.#ensureConsoleLayout();
+    const $body = this.$page.get('.console-body');
+    if (!$body) {
+      const $main = this.$page.get('.main');
+      if (!$main) this.$page.append(tag('div', { className: 'main' }));
+      this.$page.get('.main').append(...$el);
+      return;
+    }
+    $body.append(...$el);
   }
 
   async #workerOnMessage(e) {

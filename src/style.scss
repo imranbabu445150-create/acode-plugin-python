@@ -1,4 +1,148 @@
 #acode-plugin-python {
+  --console-bg: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.97));
+  --console-border: rgba(148, 163, 184, 0.24);
+  --console-shadow: 0 18px 45px rgba(2, 8, 23, 0.35);
+  --text-main: #f8fafc;
+  --text-muted: #cbd5e1;
+  --accent: #34d399;
+  --accent-2: #38bdf8;
+  --warning: #fb923c;
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+    color: var(--text-main);
+  }
+
+  .console-shell {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--console-border);
+    border-radius: 16px;
+    background: var(--console-bg);
+    box-shadow: var(--console-shadow);
+  }
+
+  .console-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px;
+    background: rgba(15, 23, 42, 0.88);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .console-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .console-label {
+    font-size: 13px;
+  }
+
+  .console-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: rgba(52, 211, 153, 0.2);
+    color: #bbf7d0;
+  }
+
+  .console-actions {
+    display: flex;
+    align-items: center;
+  }
+
+  .console-btn {
+    border: none;
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-main);
+    background: rgba(56, 189, 248, 0.18);
+    cursor: pointer;
+  }
+
+  .console-btn:hover {
+    background: rgba(56, 189, 248, 0.28);
+  }
+
+  .console-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    min-height: 220px;
+    max-height: 70vh;
+    overflow: auto;
+    background: rgba(2, 6, 23, 0.8);
+  }
+
+  .welcome-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(52, 211, 153, 0.16), rgba(56, 189, 248, 0.16));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .logo-wrap {
+    flex-shrink: 0;
+    width: 96px;
+    height: 96px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+  }
+
+  .brand-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .welcome-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .welcome-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fef3c7;
+  }
+
+  .welcome-sub {
+    font-size: 13px;
+    color: #bfdbfe;
+  }
+
   textarea {
     background-color: transparent;
     color: inherit;
@@ -6,35 +150,106 @@
     outline: none;
     resize: none;
     flex: 1;
+    width: 100%;
+    min-height: 48px;
+    padding: 0;
     tab-size: 4;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.55;
   }
 
   .print {
     display: flex;
-    white-space: pre;
-    overflow: auto;
+    align-items: flex-start;
+    gap: 8px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    line-height: 1.55;
+    border-radius: 10px;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-main);
 
-    &:not(:empty) {
+    &::before {
+      content: '>';
+      flex-shrink: 0;
+      color: var(--accent-2);
+      font-weight: 700;
+      padding-top: 1px;
+    }
+
+    &.input {
+      display: flex;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(52, 211, 153, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.24);
+      color: #bbf7d0;
+
       &::before {
         content: '>>';
-        padding: 0 10px 0 0;
-        background: rgb(255, 255, 255);
-        background: var(--secondary-color);
-        position: sticky;
-        left: 0;
+        color: var(--accent);
       }
+    }
 
-      &.input {
-        color: lightgreen;
+    &.error {
+      color: #fecaca;
+      background: rgba(248, 113, 113, 0.12);
+      border-left: 3px solid var(--warning);
 
-        &::before {
-          content: '<<';
-        }
+      &::before {
+        content: '!';
+        color: var(--warning);
       }
+    }
+  }
+}
 
-      &.error {
-        color: orangered;
-      }
+@media (max-width: 768px) {
+  #acode-plugin-python {
+    .main {
+      padding: 8px;
+    }
+
+    .console-header {
+      padding: 10px 12px;
+      flex-wrap: wrap;
+    }
+
+    .console-body {
+      padding: 10px;
+      max-height: 62vh;
+    }
+
+    .welcome-banner {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px;
+    }
+
+    .logo-wrap {
+      width: 76px;
+      height: 76px;
+    }
+
+    .welcome-title {
+      font-size: 13px;
+    }
+
+    .welcome-sub {
+      font-size: 12px;
+    }
+
+    .print {
+      padding: 8px;
+      font-size: 13px;
+    }
+
+    .console-btn {
+      padding: 6px 9px;
+      font-size: 11px;
     }
   }
 }

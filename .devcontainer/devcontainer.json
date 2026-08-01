@@ -1,0 +1,12 @@
+{
+  "name": "E-Commerce BD Environment",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "E-Commerce Live App",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "postCreateCommand": "nohup python3 -m http.server 3000 > server.log 2>&1 &"
+}
