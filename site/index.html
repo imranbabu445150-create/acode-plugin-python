@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acode Python Plugin</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Inter, Arial, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0f172a, #111827);
+        color: #f8fafc;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+
+      .card {
+        width: min(100%, 760px);
+        background: rgba(15, 23, 42, 0.86);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 20px;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+        padding: 28px;
+      }
+
+      h1 {
+        margin-top: 0;
+        font-size: 1.9rem;
+      }
+
+      p {
+        line-height: 1.6;
+        color: #cbd5e1;
+      }
+
+      .links {
+        display: grid;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      a {
+        color: #8b5cf6;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .badge {
+        display: inline-block;
+        background: #2563eb;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <span class="badge">Public GitHub Pages</span>
+      <h1>Acode Python Plugin</h1>
+      <p>This page hosts the published assets for the project and updates automatically whenever the main branch changes.</p>
+
+      <div class="links">
+        <a href="./dist/main.js">Main bundle</a>
+        <a href="./dist/worker.js">Worker bundle</a>
+        <a href="./plugin.json">Plugin manifest</a>
+        <a href="./plugin.zip">Plugin ZIP</a>
+        <a href="https://github.com/imranbabu445150-create/acode-plugin-python">Repository</a>
+      </div>
+    </main>
+  </body>
+</html>
